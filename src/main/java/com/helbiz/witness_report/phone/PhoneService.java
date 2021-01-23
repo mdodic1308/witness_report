@@ -6,5 +6,5 @@ public interface PhoneService {
 
     String getCountryCode(String phone);
 
-    String getCountryName(String phone);
+    String getGeoDescription(String phone);
 }

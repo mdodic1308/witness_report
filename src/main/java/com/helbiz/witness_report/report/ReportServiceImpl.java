@@ -36,7 +36,7 @@ public class ReportServiceImpl implements ReportService {
         report.setPhoneNumber(clientData.getPhone());
         report.setCountryByPhoneNumber(getCountryFromPhone(clientData.getPhone()));
         report.setCountryByIpAddress(getCountryFromIp(ip));
-        logger.info(MessageFormat.format("Report is created : {0}", report));
+        logger.info(MessageFormat.format("Report with this data is created: {0}", report));
         return report;
     }
 

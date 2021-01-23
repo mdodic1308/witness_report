@@ -12,14 +12,21 @@ import java.io.IOException;
 public class OutputServiceToFile implements OutputService {
     @Value("${file.path}")
     private String filePath;
+
     @Override
     public synchronized boolean write(Report report) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
-            bw.write(report.toString());
+            bw.write(outputLine(report));
             bw.newLine();
+            return true;
         } catch (IOException e) {
             return false;
         }
-        return true;
+    }
+
+    private String outputLine(Report report) {
+        return String
+                .format("title=%s, phoneNumber=%s, countryByPhoneNumber=%s, countryByIpAddress=%s", report.getTitle(),
+                        report.getPhoneNumber(), report.getCountryByPhoneNumber(), report.getCountryByIpAddress());
     }
 }

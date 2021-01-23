@@ -18,25 +18,23 @@ import java.util.Objects;
 
 @Service
 public class GeolocationServiceIpify implements GeolocationService {
+    private static final String UNKNOWN = "Unknown";
+    private static final String API_KEY = "apiKey";
+    private static final String IP_ADDRESS = "ipAddress";
     Logger logger = LoggerFactory.getLogger(GeolocationServiceIpify.class);
+    @Autowired
+    RestTemplate restTemplate;
     @Value("${ipify.api.url}")
     private String ipifyUrl;
     @Value("${ipify.api.key}")
     private String apiKey;
 
-    private static final String UNKNOWN = "Unknown";
-    private static final String API_KEY = "apiKey";
-    private static final String IP_ADDRESS = "ipAddress";
-
-    @Autowired
-    RestTemplate restTemplate;
-
     @Override
     public String getCountryFromIp(String ipAddress) {
-        IpInfo ipInfo =  getIpInfo(ipAddress);
+        IpInfo ipInfo = getIpInfo(ipAddress);
         logger.info(MessageFormat.format("IP information from ipify API: {0}", ipInfo));
         String country = ipInfo.getLocation().getCountry();
-        return country.equals("ZZ")? UNKNOWN : country;
+        return country.equals("ZZ") ? UNKNOWN : country;
     }
 
     private IpInfo getIpInfo(String ipAddress) {
