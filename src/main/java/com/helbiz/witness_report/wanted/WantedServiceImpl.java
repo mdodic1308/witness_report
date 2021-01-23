@@ -3,7 +3,7 @@ package com.helbiz.witness_report.wanted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,10 +19,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class WantedServiceImpl implements WantedService {
+    Logger logger = LoggerFactory.getLogger(WantedServiceImpl.class);
+    @Value("${wanted.api.url}")
+    private String url;
     @Autowired
     private RestTemplate restTemplate;
-
-    Logger logger = LoggerFactory.getLogger(WantedServiceImpl.class);
 
     private Wanted getWanted() {
         HttpHeaders headers = new HttpHeaders();
@@ -30,16 +31,14 @@ public class WantedServiceImpl implements WantedService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(headers);
         ResponseEntity<Wanted> responseEntity = restTemplate
-                .exchange("https://api.fbi.gov/wanted/v1/list", HttpMethod.GET, request,
-                        new ParameterizedTypeReference<Wanted>() {
-                        });
+                .exchange(url, HttpMethod.GET, request, Wanted.class);
         return Objects.requireNonNull(responseEntity.getBody());
     }
 
     @Override
     public Set<String> getWantedTitles(Map<String, String> parameters) {
         Set<String> titles = getWanted().getItems().stream().map(Item::getTitle).collect(Collectors.toSet());
-        logger.info("Current titles are (FBI wanted api): "+titles);
+        logger.info("Current titles are (FBI wanted api): " + titles);
         return getWanted().getItems().stream().map(Item::getTitle).collect(Collectors.toSet());
     }
 }
