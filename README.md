@@ -26,7 +26,7 @@ Examples of the valid POST JSON body:
 }
 
 ## Output file
-By default, file "reports.txt" will be created in the root directory of the project. File path can be changes when starting the service by changing the "file.path" property. If file doesn't exist, it will be automatically created.
+By default, file "reports.txt" will be created in the root directory of the project. File path can be changes at startup by changing the "file.path" property. If file doesn't exist, it will be automatically created.
 
 Example of the output file content:  
 title=VANDALISM OF HUNTSVILLE SYNAGOGUES, phoneNumber=+49 (0) 931 111111111, countryByPhoneNumber=DE, countryByIpAddress=Unknown  
@@ -34,4 +34,3 @@ title=VIOLENCE AT THE UNITED STATES CAPITOL, phoneNumber=+381643333333, countryB
 
 ## Known issues
 -For local running (when client and API service are both part of the same internal network), calculating of country code from IP address is not possible (service can only fetch internal ip address of client)
--SSL certificates are needed for communication with third part services
