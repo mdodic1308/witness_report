@@ -1,8 +1,8 @@
 # Spring boot based REST API for witness reporting
 
 ## Instructions for local running
-./gradlew bootRun    - for Linux  
-gradlew.bat bootRun   - for Windows  
+./gradlew bootRun --args='--ipify.api.key=KEY'  - for Linux  
+gradlew.bat bootRun --args='--ipify.api.key=KEY'  - for Windows  
 
 For overriding default configuration, you should pass the command line arguments in this format:  
 --args='--name1=value1 --name2=value2'  
