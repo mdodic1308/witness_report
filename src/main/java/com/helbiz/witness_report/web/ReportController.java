@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-//TODO create more friendly error message in api response
 @RestController
-@RequestMapping("/api/report")
+@RequestMapping("${api.relative_path}")
 public class ReportController {
 
     @Autowired
