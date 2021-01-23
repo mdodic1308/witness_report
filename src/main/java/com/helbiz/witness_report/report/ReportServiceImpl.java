@@ -6,6 +6,7 @@ import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder;
 import com.helbiz.witness_report.geolocation.GeolocationService;
 import com.helbiz.witness_report.model.ClientData;
 import com.helbiz.witness_report.model.Report;
+import com.helbiz.witness_report.output.OutputService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class ReportServiceImpl implements ReportService {
     Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
     @Autowired
     GeolocationService geolocationService;
+    @Autowired
+    OutputService outputService;
 
     @Override
     public Report create(ClientData clientData, String ip) {
@@ -27,6 +30,7 @@ public class ReportServiceImpl implements ReportService {
         report.setPhoneNumber(clientData.getPhone());
         report.setCountryByPhoneNumber(getCountryFromPhone(clientData.getPhone()));
         report.setCountryByIpAddress(getCountryFromIp(ip));
+        outputService.write(report);
         return report;
     }
 

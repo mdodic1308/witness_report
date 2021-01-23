@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IpInfo {
-
     private String ip;
     private Location location;
 }

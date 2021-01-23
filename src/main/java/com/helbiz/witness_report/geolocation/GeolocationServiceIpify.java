@@ -24,7 +24,7 @@ public class GeolocationServiceIpify implements GeolocationService {
     @Override
     public String getCountryFromIp(String ipAddress) {
         IpInfo ipInfo =  getIpInfo(ipAddress);
-        logger.info("##### IP info: " + ipInfo);
+        logger.info("IP information from ipify API: " + ipInfo);
         return ipInfo.getLocation().getCountry();
     }
 
@@ -42,7 +42,6 @@ public class GeolocationServiceIpify implements GeolocationService {
         ResponseEntity<IpInfo> responseEntity = restTemplate
                 .exchange(builder.toUriString(), HttpMethod.GET, request,
                         IpInfo.class);
-        logger.info("Ipifi api is called");
         return Objects.requireNonNull(responseEntity.getBody());
     }
 }
